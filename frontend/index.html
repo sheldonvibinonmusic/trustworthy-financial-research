@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>Northstar Research — Financial Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Northstar Research home">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span class="brand-copy"><strong>northstar</strong><small>RESEARCH WORKSPACE</small></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="primary-nav">
+        <a class="nav-item active" href="#research"><span class="nav-icon">⌕</span>New research</a>
+        <a class="nav-item" href="#report"><span class="nav-icon">▤</span>Reports <span class="nav-count">03</span></a>
+        <a class="nav-item" href="#sources"><span class="nav-icon">◫</span>Source library</a>
+      </nav>
+      <div class="sidebar-rule"></div>
+      <div class="workspace-label">RECENT RESEARCH</div>
+      <a class="recent-item selected" href="#report"><span class="recent-dot"></span><span><strong>Meridian Energy</strong><small>Annual review · Oct 24</small></span></a>
+      <a class="recent-item" href="#report"><span class="recent-dot muted"></span><span><strong>Vela Systems</strong><small>Quarterly review · Oct 21</small></span></a>
+      <a class="recent-item" href="#report"><span class="recent-dot muted"></span><span><strong>Arbor Materials</strong><small>Company overview · Oct 18</small></span></a>
+      <div class="sidebar-bottom">
+        <div class="secure-note"><span aria-hidden="true">◈</span><span><strong>Research you can trace</strong><small>Every claim linked to its source.</small></span></div>
+        <div class="profile"><div class="avatar">AK</div><span><strong>Analyst workspace</strong><small>Private workspace</small></span><span class="profile-more">···</span></div>
+      </div>
+    </aside>
+
+    <main id="top" class="main-content">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>Research</span><span class="crumb-slash">/</span><strong>New analysis</strong></div>
+        <div class="topbar-right"><span class="saved-indicator"><i></i> All changes saved</span><button class="help-button" type="button" aria-label="Help">?</button></div>
+      </header>
+
+      <div class="page-wrap">
+        <section class="intro" id="research">
+          <div class="eyebrow"><span class="eyebrow-line"></span> EVIDENCE-FIRST FINANCIAL RESEARCH</div>
+          <h1>Start with a question.<br><em>Leave with evidence.</em></h1>
+          <p class="intro-copy">Build a reviewable financial research report from trusted company filings and source documents.</p>
+        </section>
+
+        <section class="research-card" aria-labelledby="setup-title">
+          <div class="card-heading"><div><span class="step-label">01 <span>·</span> RESEARCH SETUP</span><h2 id="setup-title">What would you like to research?</h2></div><span class="private-label"><span>◈</span> Private by default</span></div>
+          <div class="mode-switch" role="tablist" aria-label="Research input mode">
+            <button class="mode-tab active" type="button" role="tab" aria-selected="true" data-mode="company"><span class="mode-icon">⌕</span><span><strong>Company research</strong><small>Find and review public filings</small></span><span class="tab-check">✓</span></button>
+            <button class="mode-tab" type="button" role="tab" aria-selected="false" data-mode="upload"><span class="mode-icon">↥</span><span><strong>Upload documents</strong><small>Research from your own PDFs</small></span><span class="tab-check">✓</span></button>
+          </div>
+
+          <form id="research-form" novalidate>
+            <div class="company-fields" id="company-fields">
+              <div class="field-grid company-grid">
+                <label class="field"><span>Company name <b>*</b></span><input id="company-name" name="company_name" placeholder="e.g. Meridian Energy" value="Meridian Energy" required></label>
+                <label class="field"><span>Ticker <small>OPTIONAL</small></span><input id="ticker" name="ticker" placeholder="e.g. MRE"></label>
+                <label class="field"><span>Jurisdiction <b>*</b></span><select id="jurisdiction" name="jurisdiction" required><option value="US" selected>United States (US)</option><option value="GB">United Kingdom (GB)</option><option value="IN">India (IN)</option><option value="CA">Canada (CA)</option><option value="AU">Australia (AU)</option><option value="other">Other</option></select></label>
+              </div>
+              <div class="field-grid periods-grid">
+                <label class="field"><span>From period</span><select id="start-year" name="start_year"></select></label>
+                <span class="period-dash">—</span>
+                <label class="field"><span>To period</span><select id="end-year" name="end_year"></select></label>
+                <div class="period-hint"><span class="hint-icon">i</span> We’ll look for filings within this range.</div>
+              </div>
+            </div>
+            <div class="upload-fields hidden" id="upload-fields">
+              <div class="upload-drop" id="drop-zone"><input id="pdf-files" type="file" accept="application/pdf,.pdf" multiple hidden><span class="upload-icon">↥</span><strong>Drop PDF files here, or <button type="button" id="browse-files" class="text-button">browse files</button></strong><small>Annual reports, filings and supporting documents · PDF up to 25 MB each</small><div id="file-list" class="file-list" aria-live="polite"></div></div>
+              <div class="field-grid upload-meta-grid">
+                <label class="field"><span>Company name <small>OPTIONAL</small></span><input id="upload-company" placeholder="e.g. Meridian Energy"></label>
+                <label class="field"><span>Jurisdiction</span><select id="upload-jurisdiction"><option value="US">United States (US)</option><option value="GB">United Kingdom (GB)</option><option value="IN">India (IN)</option><option value="CA">Canada (CA)</option><option value="AU">Australia (AU)</option></select></label>
+              </div>
+            </div>
+            <label class="field question-field"><span>Research question <b>*</b><small class="field-trailing">BE SPECIFIC FOR BETTER RESULTS</small></span><textarea id="research-question" rows="3" required placeholder="What would you like to understand?">Assess revenue growth, cash flow quality and debt risks over the selected periods.</textarea><span class="textarea-foot"><span>Try asking about a metric, trend or risk.</span><span id="char-count">96 / 500</span></span></label>
+            <details class="advanced-settings"><summary><span class="settings-icon">☷</span> Research settings <span class="summary-note">Analysis areas and API connection</span><span class="chevron">⌄</span></summary>
+              <div class="settings-body"><div class="analysis-options"><span class="settings-label">INCLUDE ANALYSIS</span><label><input type="checkbox" value="financial_performance" checked> Financial performance</label><label><input type="checkbox" value="cash_flow" checked> Cash flow</label><label><input type="checkbox" value="debt_and_liquidity" checked> Debt &amp; liquidity</label><label><input type="checkbox" value="business_risks" checked> Business risks</label></div><label class="field api-field"><span>Backend API base URL <small>OPTIONAL · LEAVE EMPTY FOR MOCK PREVIEW</small></span><input id="api-base" placeholder="http://localhost:8000" autocomplete="url"><small>When set, the start button submits this research to the FastAPI backend.</small></label></div>
+            </details>
+            <div class="form-footer"><div class="honest-note"><span>◉</span><span>Claims are only marked verified when supported by cited evidence.</span></div><button class="start-button" type="submit"><span class="start-button-label">Start research</span><span class="button-arrow">→</span></button></div>
+          </form>
+        </section>
+
+        <section class="status-card" id="processing-status" aria-live="polite" aria-labelledby="status-title">
+          <div class="status-top"><div class="status-icon idle" id="status-icon">◷</div><div class="status-copy"><div class="status-title-row"><h2 id="status-title">Ready when you are</h2><span class="status-pill idle" id="status-pill">MOCK PREVIEW</span></div><p id="status-description">This example report is illustrative mock data. Start research to submit a request.</p></div><button class="status-chevron" type="button" aria-label="Show processing details">⌄</button></div>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+          <div class="status-steps"><span class="step active" data-stage="intake"><i></i> Intake</span><span class="step" data-stage="sources"><i></i> Sources</span><span class="step" data-stage="analysis"><i></i> Analysis</span><span class="step" data-stage="report"><i></i> Report</span><span class="status-elapsed" id="status-run-id">DEMO RESULT</span></div>
+        </section>
+
+        <section class="report-section" id="report">
+          <div class="report-header"><div><span class="step-label">02 <span>·</span> RESEARCH REPORT</span><div class="report-title-row"><h2 id="report-title">Meridian Energy</h2><span class="report-status" id="report-status"><i></i> MOCK EXAMPLE</span></div><p class="report-subtitle" id="report-subtitle">Illustrative annual review <span>·</span> FY2023–FY2025 <span>·</span> Generated Oct 24, 2026</p></div><div class="report-actions"><button class="outline-button" type="button" id="copy-link"><span>↗</span> Share view</button><button class="icon-button" type="button" aria-label="More report actions">···</button></div></div>
+          <div class="coverage-strip" id="coverage-strip"><span class="coverage-icon">◫</span><div><strong>Source coverage</strong><span id="coverage-text">3 illustrative sources reviewed · 1 expected source not available in this mock example</span><small id="coverage-gaps"></small></div><span class="coverage-badge">PARTIAL</span></div>
+          <div class="report-layout">
+            <div class="report-main"><div id="report-sections" class="report-sections"></div><section id="partial-results" class="detail-block partial-results hidden" aria-labelledby="partial-title"><div class="detail-heading"><span class="detail-icon">◔</span><div><span class="section-kicker">WORKFLOW COVERAGE</span><h3 id="partial-title">Partial results</h3></div></div><div id="partial-results-list"></div></section>
+              <section id="calculations-block" class="detail-block" aria-labelledby="calculations-title"><div class="detail-heading"><span class="detail-icon">ƒx</span><div><span class="section-kicker">DETERMINISTIC RECORDS</span><h3 id="calculations-title">Financial calculations</h3></div><span class="detail-count" id="calculation-count">0</span></div><div id="calculations-list" class="detail-list"></div></section>
+              <section id="judges-block" class="detail-block" aria-labelledby="judges-title"><div class="detail-heading"><span class="detail-icon">◎</span><div><span class="section-kicker">INDEPENDENT REVIEW</span><h3 id="judges-title">Judge findings</h3></div><span class="detail-count" id="judge-count">0 / 3</span></div><div id="judges-list" class="detail-list"></div></section>
+              <section class="claims-block" aria-labelledby="claims-title"><div class="section-heading"><div><span class="section-kicker">CLAIM REVIEW</span><h3 id="claims-title">What the sources support</h3></div><span class="claim-count" id="claim-count">4 claims</span></div><div id="claims-list" class="claims-list"></div></section>
+              <section class="warnings-block" id="warnings-block"><div class="warnings-heading"><span class="warning-symbol">!</span><div><span class="section-kicker">REVIEW BEFORE RELYING</span><h3>Warnings &amp; unresolved conflicts</h3></div></div><div id="warnings-list" class="warnings-list"></div></section>
+            </div>
+            <aside class="evidence-panel" id="evidence-panel" aria-labelledby="evidence-title"><div class="evidence-heading"><div><span class="section-kicker">SOURCE TRACE</span><h3 id="evidence-title">Evidence</h3></div><span id="evidence-count" class="evidence-count">0 ITEMS</span></div><div id="evidence-detail" class="evidence-detail"><div class="empty-evidence"><span>↖</span><strong>Select a claim</strong><p>Its supporting source and relevant passage will appear here.</p></div></div><div class="evidence-library" id="sources"><div class="library-heading"><strong>Sources in this report</strong><span id="source-count">0</span></div><div id="source-list" class="source-list"></div></div></aside>
+          </div>
+          <footer class="report-footnote"><span>◈</span> For research and review purposes. This report is not investment advice or a recommendation to trade.</footer>
+        </section>
+        <footer class="page-footer"><span>Northstar Research <i>·</i> Evidence over assertion.</span><span>Financial research workspace <i>·</i> 2026</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

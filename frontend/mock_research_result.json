@@ -1,0 +1,222 @@
+{
+  "mock_data": true,
+  "run_id": "demo_meridian_2026",
+  "status": "completed_with_warnings",
+  "company": {
+    "name": "Meridian Energy",
+    "ticker": "MRE",
+    "jurisdiction": "US"
+  },
+  "periods": {
+    "start_year": 2023,
+    "end_year": 2025,
+    "label": "FY2023–FY2025"
+  },
+  "generated_at": "2026-10-24T09:30:00Z",
+  "question": "Assess revenue growth, cash flow quality and debt risks over the selected periods.",
+  "source_coverage": {
+    "status": "partial",
+    "summary": "3 illustrative sources reviewed · 1 expected source not available in this mock example",
+    "expected": 4,
+    "available": 3,
+    "gaps": ["FY2025 quarterly filing unavailable (mock example)"]
+  },
+  "report_sections": [
+    {
+      "section_id": "overview",
+      "title": "Executive overview",
+      "body": "This mock report illustrates how a future backend result can separate sourced statements, deterministic calculations, uncertainty and blocked conclusions. It is not a real analysis of Meridian Energy.",
+      "claim_ids": ["claim-verified", "claim-calculated", "claim-interpretation", "claim-conflict", "claim-blocked", "claim-not-evaluated"]
+    },
+    {
+      "section_id": "performance",
+      "title": "Revenue & performance",
+      "body": "The illustrative filing excerpt reports revenue of $4.8 billion for FY2025. A year-over-year growth figure is shown as a calculation based on mock inputs.",
+      "claim_ids": ["claim-verified", "claim-calculated", "claim-interpretation"]
+    },
+    {
+      "section_id": "risk",
+      "title": "Cash flow & risk signals",
+      "body": "The example includes one unresolved difference between two mock source excerpts and one claim blocked by missing unit and scope context.",
+      "claim_ids": ["claim-conflict", "claim-blocked"]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "claim-verified",
+      "text": "FY2025 revenue was $4.8 billion.",
+      "status": "verified_source",
+      "status_label": "VERIFIED SOURCE",
+      "explanation": "The cited mock filing passage directly states the FY2025 revenue figure.",
+      "evidence_ids": ["evidence-annual-2025"],
+      "period": "FY2025"
+    },
+    {
+      "claim_id": "claim-calculated",
+      "text": "Revenue increased approximately 9.1% from FY2024 to FY2025.",
+      "status": "calculated_checked",
+      "status_label": "CALCULATED · CHECKED",
+      "explanation": "Illustrative calculation: ($4.8B − $4.4B) ÷ $4.4B. Inputs are mock sourced values.",
+      "evidence_ids": ["evidence-annual-2025", "evidence-annual-2024"],
+      "period": "FY2024–FY2025",
+      "calculation": "($4.8B − $4.4B) ÷ $4.4B = 9.1%"
+    },
+    {
+      "claim_id": "claim-interpretation",
+      "text": "The filing describes service revenue as one contributor to FY2025 growth.",
+      "status": "interpretation_supported",
+      "status_label": "SUPPORTED INTERPRETATION",
+      "explanation": "Mock interpretation linked to a separately labeled illustrative filing excerpt.",
+      "evidence_ids": ["evidence-service-growth-2025"],
+      "period": "FY2025"
+    },
+    {
+      "claim_id": "claim-conflict",
+      "text": "FY2025 operating cash flow was $620 million.",
+      "status": "unresolved",
+      "status_label": "UNRESOLVED CONFLICT",
+      "explanation": "Two illustrative source excerpts report different operating cash flow values. The discrepancy has not been reconciled.",
+      "evidence_ids": ["evidence-annual-2025", "evidence-presentation-2025"],
+      "period": "FY2025",
+      "conflict": "The mock annual filing excerpt says $620M; the mock investor presentation excerpt says $590M. Definitions and consolidation scope have not been confirmed."
+    },
+    {
+      "claim_id": "claim-not-evaluated",
+      "text": "The company’s next-year outlook will be achieved.",
+      "status": "not_evaluated",
+      "status_label": "NOT EVALUATED",
+      "explanation": "This illustrative forward-looking statement was not evaluated in the mock report.",
+      "evidence_ids": [],
+      "period": "FY2026"
+    },
+    {
+      "claim_id": "claim-blocked",
+      "text": "Net debt was 2.1× EBITDA in FY2025.",
+      "status": "blocked",
+      "status_label": "BLOCKED",
+      "explanation": "A supporting value is not available with enough unit, accounting-definition and reporting-scope context to validate this ratio.",
+      "evidence_ids": ["evidence-annual-2025"],
+      "period": "FY2025"
+    }
+  ],
+  "evidence_items": [
+    {
+      "evidence_id": "evidence-annual-2025",
+      "document_id": "mock-doc-annual-2025",
+      "document_version": "mock-v1",
+      "filename": "meridian_annual_report_fy2025_mock.pdf",
+      "title": "Annual report · FY2025 (mock)",
+      "source_type": "MOCK ANNUAL FILING",
+      "page": 42,
+      "section": "Consolidated statements of operations",
+      "published_at": "2026-02-18",
+      "locator": "Page 42 · Revenue, FY2025",
+      "quote": "For the year ended December 31, 2025, total revenue was $4.8 billion. Operating cash flow was $620 million.",
+      "url": "#mock-evidence-annual-2025"
+    },
+    {
+      "evidence_id": "evidence-service-growth-2025",
+      "document_id": "mock-doc-annual-2025",
+      "document_version": "mock-v1",
+      "filename": "meridian_annual_report_fy2025_mock.pdf",
+      "title": "Annual report · FY2025 (mock)",
+      "source_type": "MOCK ANNUAL FILING",
+      "page": 15,
+      "section": "Revenue by segment",
+      "published_at": "2026-02-18",
+      "locator": "Page 15 · Service revenue, FY2025",
+      "quote": "In this illustrative mock excerpt, service revenue growth contributed to the year-over-year change.",
+      "url": "#mock-evidence-service-growth-2025"
+    },
+    {
+      "evidence_id": "evidence-annual-2024",
+      "document_id": "mock-doc-annual-2024",
+      "document_version": "mock-v1",
+      "filename": "meridian_annual_report_fy2024_mock.pdf",
+      "title": "Annual report · FY2024 (mock)",
+      "source_type": "MOCK ANNUAL FILING",
+      "page": 39,
+      "section": "Consolidated statements of operations",
+      "published_at": "2025-02-19",
+      "locator": "Page 39 · Revenue, FY2024",
+      "quote": "For the year ended December 31, 2024, total revenue was $4.4 billion.",
+      "url": "#mock-evidence-annual-2024"
+    },
+    {
+      "evidence_id": "evidence-presentation-2025",
+      "document_id": "mock-doc-presentation-2025",
+      "document_version": "mock-v1",
+      "filename": "meridian_investor_presentation_fy2025_mock.pdf",
+      "title": "Investor presentation · FY2025 (mock)",
+      "source_type": "MOCK PRESENTATION",
+      "page": 18,
+      "section": "Cash generation overview",
+      "published_at": "2026-03-03",
+      "locator": "Page 18 · Cash generation",
+      "quote": "Operating cash flow for fiscal 2025 was $590 million, excluding discontinued operations.",
+      "url": "#mock-evidence-presentation-2025"
+    }
+  ],
+  "financial_calculations": [
+    {
+      "calculation_id": "calc-revenue-growth",
+      "claim_id": "claim-calculated",
+      "formula": "(current_period - prior_period) / prior_period",
+      "inputs": ["$4.8B FY2025 revenue", "$4.4B FY2024 revenue"],
+      "result": "9.1%",
+      "status": "mock_checked",
+      "evidence_ids": ["evidence-annual-2025", "evidence-annual-2024"]
+    }
+  ],
+  "judge_reviews": [
+    {
+      "review_id": "mock-review-evidence",
+      "role": "Evidence and citation auditor",
+      "verdict": "illustrative_pass",
+      "findings": "Mock finding: the quoted revenue excerpt directly matches the example claim. No live audit was performed.",
+      "claim_id": "claim-verified",
+      "evidence_ids": ["evidence-annual-2025"]
+    },
+    {
+      "review_id": "mock-review-financial-integrity",
+      "role": "Financial integrity auditor",
+      "verdict": "illustrative_review",
+      "findings": "Mock finding: the growth calculation record points to two illustrative annual inputs; period, units and accounting context still require backend validation.",
+      "claim_id": "claim-calculated",
+      "evidence_ids": ["evidence-annual-2025", "evidence-annual-2024"]
+    },
+    {
+      "review_id": "mock-review-adversarial",
+      "role": "Adversarial skeptic",
+      "verdict": "illustrative_conflict",
+      "findings": "Mock finding: another example source gives a different operating cash flow amount and a scope caveat. The conflict remains unresolved.",
+      "claim_id": "claim-conflict",
+      "evidence_ids": ["evidence-annual-2025", "evidence-presentation-2025"]
+    }
+  ],
+  "warnings": [
+    {
+      "type": "source_coverage",
+      "title": "Incomplete source coverage",
+      "message": "This mock run has 3 illustrative sources for 4 expected items. One quarterly filing is marked unavailable in the example."
+    },
+    {
+      "type": "unresolved_conflict",
+      "title": "Operating cash flow differs across mock sources",
+      "message": "The mock annual filing excerpt reports $620M while a mock investor presentation reports $590M. The excerpts cite different scopes; review the original documents before relying on either value."
+    },
+    {
+      "type": "blocked_claim",
+      "title": "Leverage ratio not validated",
+      "message": "The example lacks comparable debt and EBITDA values with confirmed unit, definition and reporting scope, so the ratio remains blocked."
+    }
+  ],
+  "failed_nodes": [
+    {
+      "node": "quarterly_source_discovery",
+      "status": "mock_partial",
+      "reason": "One quarterly source is unavailable in this illustrative run."
+    }
+  ],
+  "mock_notice": "Illustrative interface data only. These company figures, source excerpts, claim statuses and calculations are fabricated examples and must not be treated as real financial information."
+}
