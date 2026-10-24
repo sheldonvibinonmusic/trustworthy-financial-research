@@ -17,10 +17,13 @@ from app.ingestion.document_parser import (
     ingest_documents,
 )
 from app.ingestion.file_validation import validate_pdf
+from app.ingestion.registry import DocumentRegistry, registry
 
 __all__ = [
     "ingest_documents",
     "validate_pdf",
     "DocumentParseResult",
     "ParsedPage",
+    "DocumentRegistry",
+    "registry",
 ]

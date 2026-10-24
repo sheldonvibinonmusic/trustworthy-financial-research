@@ -16,9 +16,7 @@ dist/
 build/
 
 # Generated application data
-data/uploads/
-data/parsed/
-data/qdrant/
+data/
 
 # Local databases and logs
 *.log

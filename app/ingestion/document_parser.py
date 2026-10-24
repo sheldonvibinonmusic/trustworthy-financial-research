@@ -34,6 +34,8 @@ from pathlib import Path
 from typing import Any
 
 from app.ingestion.file_validation import validate_pdf
+from app.ingestion.quality_check import check_document_quality, check_page_text_quality
+from app.ingestion.registry import registry
 
 logger = logging.getLogger(__name__)
 
@@ -171,7 +173,10 @@ def _try_pymupdf(path: Path, document_id: str, filename: str) -> list[ParsedPage
     PyMuPDF is not available or the file cannot be read.
     """
     try:
-        import fitz  # type: ignore[import]
+        try:
+            import pymupdf as fitz
+        except ImportError:
+            import fitz  # type: ignore[import]
     except ImportError:
         logger.error("PyMuPDF (fitz) is not installed; cannot parse PDF")
         return None
@@ -220,7 +225,10 @@ def _extract_pymupdf_metadata(path: Path) -> dict[str, Any]:
     Return the PDF metadata dictionary from PyMuPDF, or an empty dict on error.
     """
     try:
-        import fitz  # type: ignore[import]
+        try:
+            import pymupdf as fitz
+        except ImportError:
+            import fitz  # type: ignore[import]
 
         doc = fitz.open(str(path))
         try:
@@ -296,24 +304,42 @@ def _parse_single_pdf(
             elapsed_seconds=time.monotonic() - t0,
         )
 
+        # Run page-level text quality checks
+        for pg in pages:
+            q_warns = check_page_text_quality(pg.page_number, pg.text)
+            pg.warnings.extend(q_warns)
+
     # 4. Collect per-page warnings ----------------------------------------
     all_page_warnings: list[str] = []
-    for pg in pages:
-        all_page_warnings.extend(pg.warnings)
+    if pages:
+        for pg in pages:
+            all_page_warnings.extend(pg.warnings)
 
     all_warnings = parse_warnings + all_page_warnings
+
+    # Document-level quality check
+    if pages is not None:
+        doc_q_warns = check_document_quality(
+            filename=filename,
+            pages_count=len(pages),
+            all_warnings=all_warnings,
+            metadata=doc_metadata,
+        )
+        all_warnings.extend(doc_q_warns)
+
     status = "uploaded_with_warnings" if all_warnings else "uploaded"
 
-    return DocumentParseResult(
+    res = DocumentParseResult(
         document_id=document_id,
         filename=filename,
         status=status,
-        pages=pages,
+        pages=pages if pages else [],
         warnings=all_warnings,
         metadata=doc_metadata,
         parser_used=parser_used,
         elapsed_seconds=time.monotonic() - t0,
     )
+    return res
 
 
 # ---------------------------------------------------------------------------
@@ -348,6 +374,7 @@ def ingest_documents(
     * Processing is sequential; parallelism is deferred to a later milestone.
     * A result with ``status == "failed"`` contains an empty ``pages`` list.
       Callers must not treat ``failed`` results as having usable text.
+    * Ingested documents are stored in the document registry for downstream indexing.
     """
     caller_metadata: dict[str, Any] = metadata or {}
     results: list[DocumentParseResult] = []
@@ -364,6 +391,8 @@ def ingest_documents(
             len(result.warnings),
             result.elapsed_seconds,
         )
+        if result.status != "failed":
+            registry.register(result)
         results.append(result)
 
     return results

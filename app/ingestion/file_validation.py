@@ -59,7 +59,10 @@ def validate_pdf(path: Path | str) -> ValidationResult:
 
     # --- Structural check via PyMuPDF ---
     try:
-        import fitz  # PyMuPDF
+        try:
+            import pymupdf as fitz
+        except ImportError:
+            import fitz  # PyMuPDF
 
         doc = fitz.open(str(path))
         try:
